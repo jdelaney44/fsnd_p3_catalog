@@ -1,0 +1,62 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+	{{ super() }}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Edit - {{category_form.category_name.data}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <form method='GET' enctype="multipart/form-data">
+                        <input type = "submit"
+                            class="btn btn-primary btn-xs
+                            name = "back_to_categories"
+                            formaction = {{url_for("categories") }}
+                            Value = "Back" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{category_form.hidden_tag() }}
+                        <div class="row">
+                            <div class="col-xs-4">
+                                Name:
+                            </div>
+                            <div class="col-xs-4">
+                                Description:
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                {{category_form.category_name(class="form-control required")}}
+                            </div>
+                            <div class="col-xs-4">
+                                {{ category_form.category_description(class="form-control required")}}
+                            </div>
+                            <div class="col-xs-4">
+                                <input type = "submit"
+                                       class="btn btn-primary btn-xs
+                                       name = "edit_menu_item"
+                                       formaction = {{url_for("edit_category",
+                                            category_id = category_form.category_id.data)}}
+                                       value = "Save" />
+                                <input type = "submit"
+                                       class="btn btn-primary btn-xs
+                                       name = "back"
+                                       formaction = {{url_for("categories") }}
+                                       value = "Back" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

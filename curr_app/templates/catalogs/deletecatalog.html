@@ -1,0 +1,35 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+	{{ super() }}
+    <div class = "container">
+        <div class="row">
+            <div class="col-xs-12">
+                Confirm DELETION of a catalog and all contents. There is NO undo!
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                Catalog To Delete:  {{catalog.catalog_name}}
+            </div>
+            <div class="col-xs-4">
+                <form method="POST" enctype="multipart/form-data">
+                    <input type = "submit"
+                        class="btn btn-primary btn-xs"
+                        name = "delete_catalog"
+                        formaction = {{url_for("delete_catalog",
+                            catalog_id = catalog.catalog_id) }}
+                        value="Delete" />
+                    <input type = "submit"
+                        class="btn btn-primary btn-xs"
+                        name = "do_not_delete"
+                        formaction = {{url_for("catalogs") }}
+                        value="Back" />
+                </form>
+                <div class="clearfix invisible"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

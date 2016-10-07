@@ -1,0 +1,62 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+	{{ super() }}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Edit - {{catalog_form.catalog_name.data}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <form method='GET' enctype="multipart/form-data">
+                        <input type = "submit"
+                            class="btn btn-primary btn-xs
+                            name = "back_to_catalogs"
+                            formaction = {{url_for("catalogs") }}
+                            Value = "Back" />
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{catalog_form.hidden_tag() }}
+                        <div class="row">
+                            <div class="col-xs-4">
+                                Name:
+                            </div>
+                            <div class="col-xs-4">
+                                Description:
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                {{catalog_form.catalog_name(class="form-control required")}}
+                            </div>
+                            <div class="col-xs-4">
+                                {{ catalog_form.catalog_description(class="form-control required")}}
+                            </div>
+                            <div class="col-xs-4">
+                                <input type = "submit"
+                                       class="btn btn-primary btn-xs
+                                       name = "edit_menu_item"
+                                       formaction = {{url_for("edit_catalog",
+                                            catalog_id = catalog_form.catalog_id.data)}}
+                                       value = "Save" />
+                                <input type = "submit"
+                                       class="btn btn-primary btn-xs
+                                       name = "back"
+                                       formaction = {{url_for("catalogs") }}
+                                       value = "Back" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

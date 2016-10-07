@@ -1,0 +1,97 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+	{{ super() }}
+		<div class = "container">
+            {{item_form.item_catalog_name.data}} - Edit an item
+            <form method='GET' enctype="multipart/form-data">
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        <input type = "submit"
+                            class="btn btn-primary btn-xs"
+                            name = "back_to_catalogs"
+                            formaction = {{url_for("catalog_items",
+                                catalog_id = item_form.item_catalog_id.data)}}
+                            Value="Back" />
+                    </div>
+                </div>
+            </form>
+            <form method="POST" enctype="multipart/form-data">
+                {{ item_form.hidden_tag() }}
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        {{ item_form.item_name.label }}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        {{ item_form.item_name(class="form-control required") }}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        {{ item_form.item_description.label }}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        {{ item_form.item_description(class="form-control required") }}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        {{ item_form.item_categories.label }}
+                    </div>
+                </div>
+                <div class = "row" >
+                    <div class = "col-xs-4"  >
+                        <div class="form-group">
+                            {{ item_form.item_categories(class="form-control required") }}
+                        </div>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-2">
+                        {{ item_form.item_price.label }}
+                    </div>
+                    <div class = "col-xs-2">
+                        {{ item_form.item_price(class="form-control") }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% if item_form.item_photo.data != None %}
+                            <img src="{{ item_form.item_photo.data|image_tag }}" width = "120" height = "120" />
+                        {% endif %}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-6">
+                        {{ item_form.item_photo.label }}
+                        {{ item_form.item_photo(class="form-control") }}
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-xs-4">
+                        {{ item_form.submit(class = "btn btn-primary btn-xs") }}
+                    </div>
+                {{ item_form.item_catalog_name(style = "visibility:hidden; height:0%")}}
+                {{ item_form.item_catalog_id( style = "visibility:hidden; height:0%;") }}
+                {{ item_form.item_id(style = "visibility:hidden; height:0%;") }}
+                </div>
+            </form>
+            <form method='GET' enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <input type = "submit"
+                           class="btn btn-primary btn-xs"
+                            name = "back_to_catalog"
+                            formaction = {{url_for("catalog_items",
+                                catalog_id = item_form.item_catalog_id.data)}}
+                            value = "Back" />
+                    </div>
+                </div>
+            </form>
+        </div>
+{% endblock %}

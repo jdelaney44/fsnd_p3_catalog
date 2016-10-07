@@ -1,0 +1,98 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<div class = "container">
+{% block content %}
+{#	{{ super() }}#}
+        {%  block page_title %}
+            <div class="row">
+                <div class="col-xs-10">
+                    <h4>Items in the {{catalog.catalog_name}} catalog</h4>
+                </div>
+            </div>
+        {% endblock %}
+        <div class="row">
+            <div class="col-xs-12">
+                <form method='GET' enctype="multipart/form-data">
+                    <input type = "submit"
+                        class="btn btn-primary btn-xs"
+                        name = "back_to_catalogs"
+                        formaction = {{url_for("catalogs") }}
+                        value="Back">
+                </form>
+            </div>
+        </div>
+            {{item_form.hidden_tag()}}
+            {% for i in items %}
+                <div class="row">
+                    <div class="col-xs-4">
+                        {{i.item_name}}
+                    </div>
+                    <div class="col-xs-4" id="description"  >
+                        {{i.item_description}}
+                    </div>
+                    <div class="col-xs-2">
+                        <form method='GET' enctype="multipart/form-data" >
+                            <input type="submit"
+                                class="btn btn-primary btn-xs"
+                                name = "edit_item"
+                                formaction = {{url_for("edit_item",
+                                    item_catalog_id = item_form.item_catalog_id,
+                                    item_id = i.item_id) }}
+                                Value = "Edit"/>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        {{i.item_category.category_name}}
+                    </div>
+                    <div class="col-xs-4" id="price_style">
+                        {{i.item_price|format_currency}}
+                    </div>
+                    <div class="col-xs-2">
+                        <form method='GET' enctype="multipart/form-data" >
+                            <input type="submit"
+                                class="btn btn-primary btn-xs"
+                                name = "delete_item"
+                                formaction = {{url_for("delete_item",
+                                    item_catalog_id = item_form.item_catalog_id,
+                                    item_id = i.item_id) }}
+                                value = "Delete" >
+                        </form>
+{#                            <div class="clearfix invisible"></div>#}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% if i.item_photo_file_name != None %}
+                            <img src="{{ i.item_photo_file_name|image_tag }}" width = "120" height = "120" />
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-xs-12" id="item_spacer">
+                        <a>.</a>
+                    </div>
+                </div>
+            {% endfor %}
+        <div class="row"><br></div>
+        <div class="row">
+            <div class="col-xs-8">
+                <form method='GET' enctype="multipart/form-data" >
+
+                    <input type = "submit"
+                        class="btn btn-primary btn-xs"
+                        name = "add_item"
+                            formaction = {{url_for("add_item",
+                                item_catalog_id = item_form.item_catalog_id) }}
+                        value = "Add Item" >
+                </form>
+            </div>
+        </div>
+
+{% endblock %}
+{% block page_content %}
+    {{ super() }}
+{% endblock %}
+</div>

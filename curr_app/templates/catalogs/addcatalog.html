@@ -1,0 +1,53 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+	{{ super() }}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h4>Add a catalog</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <form method='GET'>
+                        <input type = "submit"
+                               class="btn btn-primary btn-xs"
+                               name = "catalogs"
+                               formaction = {{url_for("catalogs")}}
+                               value = "Back" />
+                    </form>
+                </div>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action = "{{url_for('add_catalog')}}" >
+                {{catalog_form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-xs-3">
+                        {{ catalog_form.catalog_name.label }}
+                    </div>
+                    <div class="col-xs-5">
+                        {{ catalog_form.catalog_description.label }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        {{ catalog_form.catalog_name(class = "form-control required" ) }}
+                    </div>
+                    <div class="col-xs-5">
+                        {{ catalog_form.catalog_description(class = "form-control required" ) }}
+                    </div>
+                    <div class="col-xs-4">
+                        {{ catalog_form.submit(class = "btn btn-primary btn-xs")}}
+                        <input type = "submit"
+                        class="btn btn-primary btn-xs"
+                        name = "catalogs"
+                        formaction = {{url_for("catalogs")}}
+                        value = "Back" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+{% endblock %}
+

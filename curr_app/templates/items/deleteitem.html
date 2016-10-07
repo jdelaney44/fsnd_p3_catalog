@@ -1,0 +1,56 @@
+{% extends "curr_base.html" %}
+
+{% block content %}
+	{{ super() }}
+		Confirm DELETION  of a catalog item. There is NO undo!
+		<form method='GET'>
+			<input type = "submit"
+			 	name = "back_to_catalogs"
+			 	class="btn btn-primary btn-xs"
+				formaction = {{url_for("catalog_items",
+                            catalog_id = item.item_catalog_id) }}
+				Value = "Back" />
+		</form>
+		<form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xs-2">
+				    <b>Item Name</b>
+                </div>
+                <div class="col-xs-4">
+                    <b>Description</b>
+                </div>
+                <div class="col-xs-3">
+    				<b>Price</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+				    {{item.item_name}}
+                </div>
+                <div class="col-xs-4">
+		 		    {{item.item_description}}
+                </div>
+                <div class="col-xs-3">
+		 		    {{item.item_price}}
+                </div>
+                <div class="col-xs-2">
+                    <input type = "submit"
+                        name = "delete_catalog_item"
+                        class="btn btn-primary btn-xs"
+                        formaction = {{url_for("delete_item",
+                            item_catalog_id = item.item_catalog_id,
+                            item_id = item.item_id) }}
+                        value = "Delete" />
+                </div>
+                <div class="col-xs-2">
+                    <input type = "submit"
+                        name = "edit_catalog"
+                        class="btn btn-primary btn-xs"
+                        formaction = {{url_for("catalog_items",
+                            catalog_id = item.item_catalog_id) }}
+                        Value = "Abort" />
+                </div>
+            </div>
+		</form>
+{% endblock %}
+

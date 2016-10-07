@@ -1,0 +1,93 @@
+{% extends "curr_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+	{{ super() }}
+    <div class="container">
+        {% if current_user.is_authenticated %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4>List of categories</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <form method='GET' enctype="multipart/form-data">
+                        <input type = "submit"
+                           class="btn btn-primary btn-xs"
+                            name = "back_to_catalogs"
+                            formaction = {{url_for("catalogs")}}
+                            value = "Back" />
+                    </form>
+                </div>
+            </div>
+            <form method='GET'>
+                {% for c in categories %}
+                    <div class="row">
+                        <div class="col-xs-3">
+                            {{c.category_name}}
+                        </div>
+                        <div class="col-xs-4" id="description">
+                            {{c.category_description}}
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="submit"
+                                class="btn btn-primary btn-xs"
+                                name = "edit_category"
+                                formaction = {{url_for("edit_category",
+                                    category_id = c.category_id) }}
+                                value = "Edit category" />
+                            <input type="submit"
+                                class="btn btn-primary btn-xs"
+                                name = "delete_category"
+                                formaction = {{url_for("delete_category",
+                                    category_id = c.category_id) }}
+                                value = "Delete" >
+                            <div class="clearfix invisible"></div>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-xs-12" id="item_spacer">
+                            <a>.</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row"><br> </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <form method='GET' enctype="multipart/form-data">
+                            <input type = "submit"
+                               class="btn btn-primary btn-xs"
+                                name = "back_to_catalogs"
+                                formaction = {{url_for("catalogs")}}
+                                value = "Back" />
+                        </form>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="submit"
+                            name = "add_category"
+                            class="btn btn-primary btn-xs"
+                            formaction = {{url_for("add_category")}}
+                            Value = "Add category" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Hi! You are not logged in.</h4>
+                <h4>Please Login With The Links Above!</h4>
+                <p>You will need an account with either Google, Facebook, or Twitter.</p>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock %}
+
